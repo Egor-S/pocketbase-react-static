@@ -24,4 +24,5 @@ Ready to use SPA template for Pocketbase. Compiles to a single binary/Docker ima
 - User auth and registration
 - Admin auth
 - GitHub action for building Docker image (multiplatform)
+- Recommended extensions for VSCode
 - Cursor IDE rules for better development experience
