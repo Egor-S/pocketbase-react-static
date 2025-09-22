@@ -6,4 +6,6 @@
 npm create vite@latest -- --template react-ts
 cd react
 npm install
+
+npm install tailwindcss @tailwindcss/vite
 ```
