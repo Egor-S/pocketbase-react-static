@@ -14,6 +14,9 @@ npm install -D @types/node
 npx shadcn@latest init
 # [4] Storybook
 npm create storybook@latest
+# [5] TanStack Router
+npm install @tanstack/react-router @tanstack/react-router-devtools
+npm install -D @tanstack/router-plugin
 ```
 
 References:
@@ -22,3 +25,4 @@ References:
 2. https://tailwindcss.com/docs/installation/using-vite
 3. https://ui.shadcn.com/docs/installation/vite
 4. https://storybook.js.org/docs/get-started/frameworks/react-vite
+5. https://tanstack.com/router/latest/docs/framework/react/quick-start
