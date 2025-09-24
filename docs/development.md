@@ -29,6 +29,9 @@ npm install -D @tanstack/router-plugin
 # [6] Pocketbase Typegen
 npm install pocketbase
 npm install -D pocketbase-typegen
+# [7] TanStack Query
+npm install @tanstack/react-query
+npm install -D @tanstack/eslint-plugin-query @tanstack/react-query-devtools
 ```
 
 References:
@@ -39,3 +42,4 @@ References:
 4. https://storybook.js.org/docs/get-started/frameworks/react-vite
 5. https://tanstack.com/router/latest/docs/framework/react/quick-start
 6. https://github.com/patmood/pocketbase-typegen
+7. https://tanstack.com/query/latest/docs/framework/react/installation

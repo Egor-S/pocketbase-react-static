@@ -17,7 +17,7 @@ Ready to use SPA template for Pocketbase. Compiles to a single binary/Docker ima
 - shadcn/ui
 - Storybook
 - TanStack Router
-- _Some_ State Management
+- TanStack Query
 
 ## Integrations
 
