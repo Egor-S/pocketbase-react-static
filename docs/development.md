@@ -1,5 +1,14 @@
 # pocketbase-react-spa development log
 
+## pocketbase
+
+```bash
+mkdir pocketbase
+cd pocketbase
+go mod init github.com/Egor-S/pocketbase-react-static/pocketbase
+go get github.com/pocketbase/pocketbase
+```
+
 ## react
 
 ```bash

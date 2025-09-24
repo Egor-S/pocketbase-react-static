@@ -1,2 +1,7 @@
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
+
+pb_data/
+
+.DS_Store
