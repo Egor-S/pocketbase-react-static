@@ -18,10 +18,10 @@ Ready to use SPA template for Pocketbase. Compiles to a single binary/Docker ima
 - Storybook
 - TanStack Router
 - _Some_ State Management
-- _Some_ PB types complier
 
 ## Integrations
 
+- Pocketbase Typegen
 - User auth and registration
 - Admin auth
 - GitHub action for building Docker image (multiplatform)

@@ -26,6 +26,9 @@ npm create storybook@latest
 # [5] TanStack Router
 npm install @tanstack/react-router @tanstack/react-router-devtools
 npm install -D @tanstack/router-plugin
+# [6] Pocketbase Typegen
+npm install pocketbase
+npm install -D pocketbase-typegen
 ```
 
 References:
@@ -35,3 +38,4 @@ References:
 3. https://ui.shadcn.com/docs/installation/vite
 4. https://storybook.js.org/docs/get-started/frameworks/react-vite
 5. https://tanstack.com/router/latest/docs/framework/react/quick-start
+6. https://github.com/patmood/pocketbase-typegen
