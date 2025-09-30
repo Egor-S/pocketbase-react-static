@@ -21,6 +21,12 @@ npm install tailwindcss @tailwindcss/vite
 # [3] Shadcn/UI
 npm install -D @types/node
 npx shadcn@latest init
+npx shadcn@latest add button
+npx shadcn@latest add card
+npx shadcn@latest add dropdown-menu
+npx shadcn@latest add input
+npx shadcn@latest add label
+npx shadcn@latest add login-05
 # [4] Storybook
 npm create storybook@latest
 # [5] TanStack Router
@@ -29,6 +35,7 @@ npm install -D @tanstack/router-plugin
 # [6] Pocketbase Typegen
 npm install pocketbase
 npm install -D pocketbase-typegen
+npm run typegen
 # [7] TanStack Query
 npm install @tanstack/react-query
 npm install -D @tanstack/eslint-plugin-query @tanstack/react-query-devtools

@@ -1,31 +1,31 @@
+import { ClientResponseError } from "pocketbase";
+import { mutationOptions, queryOptions } from "@tanstack/react-query";
 import { pb } from "@/lib/pocketbase";
-import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import { queryClient } from "@/api/queryClient";
 
-export const CurrentUserKey = ["currentUser"];
+export const UserQueryOptions = queryOptions({
+  queryKey: ["currentUser"],
+  queryFn: () => pb.collection("users").authRefresh(),
+  refetchInterval: 30 * 60 * 1000, // 30 minutes
+  retry: (failureCount, error) => {
+    if (failureCount >= 3) return false;
+    if (error instanceof ClientResponseError && error.status === 401)
+      return false;
+    return true;
+  },
+});
 
-export function useCurrentUser() {
-  return useQuery({
-    queryKey: CurrentUserKey,
-    queryFn: () => pb.collection("users").authRefresh(),
-    refetchInterval: 30 * 60 * 1000, // 30 minutes
-  });
-}
+export const LogoutMutationOptions = mutationOptions({
+  mutationFn: async () => pb.authStore.clear(),
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: UserQueryOptions.queryKey });
+  },
+});
 
-export function useLoginMutation(queryClient: QueryClient) {
-  return useMutation({
-    mutationFn: (data: { email: string; password: string }) =>
-      pb.collection("users").authWithPassword(data.email, data.password),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: CurrentUserKey });
-    },
-  });
-}
-
-export function useLogoutMutation(queryClient: QueryClient) {
-  return useMutation({
-    mutationFn: async () => pb.authStore.clear(),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: CurrentUserKey });
-    },
-  });
-}
+export const LoginMutationOptions = mutationOptions({
+  mutationFn: (data: { email: string; password: string }) =>
+    pb.collection("users").authWithPassword(data.email, data.password),
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: UserQueryOptions.queryKey });
+  },
+});
