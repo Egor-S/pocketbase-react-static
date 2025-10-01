@@ -27,6 +27,7 @@ npx shadcn@latest add dropdown-menu
 npx shadcn@latest add input
 npx shadcn@latest add label
 npx shadcn@latest add login-05
+npx shadcn@latest add navigation-menu
 # [4] Storybook
 npm create storybook@latest
 # [5] TanStack Router

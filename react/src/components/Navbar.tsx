@@ -1,27 +1,29 @@
 import { CurrentUser } from "@/components/CurrentUser";
 import { Link } from "@tanstack/react-router";
+import {
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
 
 export function Navbar() {
   return (
-    <nav className="bg-white shadow-sm border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Left side - Logo/Brand */}
-          <div className="flex-shrink-0">
-            <Link
-              to="/"
-              className="text-xl font-semibold text-gray-900 hover:text-gray-700"
-            >
+    <NavigationMenu viewport={false}>
+      <NavigationMenuList>
+        <NavigationMenuItem>
+          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+            <Link to="/" className="font-semibold">
               PocketBase SPA
             </Link>
-          </div>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+      </NavigationMenuList>
 
-          {/* Right side - Current User */}
-          <div className="flex items-center">
-            <CurrentUser />
-          </div>
-        </div>
-      </div>
-    </nav>
+      <NavigationMenuList>
+        <CurrentUser />
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 }
