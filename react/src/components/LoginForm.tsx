@@ -8,14 +8,10 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { LoginMutationOptions } from "@/api/auth";
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
 
-type LoginFormProps = React.ComponentProps<"div"> & {
-  redirectTo?: string;
-};
+type LoginFormProps = React.ComponentProps<"div">;
 
-export function LoginForm({ className, redirectTo, ...props }: LoginFormProps) {
-  const navigate = useNavigate();
+export function LoginForm({ className, ...props }: LoginFormProps) {
   const {
     mutate: login,
     isError,
@@ -24,10 +20,7 @@ export function LoginForm({ className, redirectTo, ...props }: LoginFormProps) {
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    login(
-      { email, password },
-      { onSuccess: () => redirectTo && navigate({ to: redirectTo }) }
-    );
+    login({ email, password });
   }
 
   const [email, setEmail] = useState("");
