@@ -25,9 +25,5 @@ function AuthenticatedRoute() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, isError, user, navigate]);
 
-  return (
-    <>
-      <Outlet />
-    </>
-  );
+  return <Outlet />;
 }

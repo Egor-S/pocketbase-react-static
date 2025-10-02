@@ -11,8 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
+import { Route as AdminRouteRouteImport } from './routes/_admin/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthSecretRouteImport } from './routes/_auth/secret'
+import { Route as AdminTopsecretRouteImport } from './routes/_admin/topsecret'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -21,6 +23,10 @@ const LoginRoute = LoginRouteImport.update({
 } as any)
 const AuthRouteRoute = AuthRouteRouteImport.update({
   id: '/_auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRouteRoute = AdminRouteRouteImport.update({
+  id: '/_admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -33,34 +39,51 @@ const AuthSecretRoute = AuthSecretRouteImport.update({
   path: '/secret',
   getParentRoute: () => AuthRouteRoute,
 } as any)
+const AdminTopsecretRoute = AdminTopsecretRouteImport.update({
+  id: '/topsecret',
+  path: '/topsecret',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/topsecret': typeof AdminTopsecretRoute
   '/secret': typeof AuthSecretRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/topsecret': typeof AdminTopsecretRoute
   '/secret': typeof AuthSecretRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_admin': typeof AdminRouteRouteWithChildren
   '/_auth': typeof AuthRouteRouteWithChildren
   '/login': typeof LoginRoute
+  '/_admin/topsecret': typeof AdminTopsecretRoute
   '/_auth/secret': typeof AuthSecretRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/secret'
+  fullPaths: '/' | '/login' | '/topsecret' | '/secret'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/secret'
-  id: '__root__' | '/' | '/_auth' | '/login' | '/_auth/secret'
+  to: '/' | '/login' | '/topsecret' | '/secret'
+  id:
+    | '__root__'
+    | '/'
+    | '/_admin'
+    | '/_auth'
+    | '/login'
+    | '/_admin/topsecret'
+    | '/_auth/secret'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRouteRoute: typeof AdminRouteRouteWithChildren
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   LoginRoute: typeof LoginRoute
 }
@@ -81,6 +104,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_admin': {
+      id: '/_admin'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AdminRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -95,8 +125,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSecretRouteImport
       parentRoute: typeof AuthRouteRoute
     }
+    '/_admin/topsecret': {
+      id: '/_admin/topsecret'
+      path: '/topsecret'
+      fullPath: '/topsecret'
+      preLoaderRoute: typeof AdminTopsecretRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
   }
 }
+
+interface AdminRouteRouteChildren {
+  AdminTopsecretRoute: typeof AdminTopsecretRoute
+}
+
+const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminTopsecretRoute: AdminTopsecretRoute,
+}
+
+const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
+  AdminRouteRouteChildren,
+)
 
 interface AuthRouteRouteChildren {
   AuthSecretRoute: typeof AuthSecretRoute
@@ -112,6 +161,7 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRouteRoute: AdminRouteRouteWithChildren,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   LoginRoute: LoginRoute,
 }

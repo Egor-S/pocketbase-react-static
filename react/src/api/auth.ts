@@ -1,18 +1,29 @@
 import { ClientResponseError } from "pocketbase";
 import { mutationOptions, queryOptions } from "@tanstack/react-query";
-import { pb } from "@/lib/pocketbase";
+import { pb, pbAdmin } from "@/lib/pocketbase";
 import { queryClient } from "@/api/queryClient";
+
+const authRefetchInterval = 30 * 60 * 1000; // 30 minutes
+
+function authRetry(failureCount: number, error: Error) {
+  if (failureCount >= 3) return false;
+  if (error instanceof ClientResponseError && error.status === 401)
+    return false;
+  return true;
+}
 
 export const UserQueryOptions = queryOptions({
   queryKey: ["currentUser"],
   queryFn: () => pb.collection("users").authRefresh(),
-  refetchInterval: 30 * 60 * 1000, // 30 minutes
-  retry: (failureCount, error) => {
-    if (failureCount >= 3) return false;
-    if (error instanceof ClientResponseError && error.status === 401)
-      return false;
-    return true;
-  },
+  refetchInterval: authRefetchInterval,
+  retry: authRetry,
+});
+
+export const AdminQueryOptions = queryOptions({
+  queryKey: ["currentAdmin"],
+  queryFn: () => pbAdmin.collection("_superusers").authRefresh(),
+  refetchInterval: authRefetchInterval,
+  retry: authRetry,
 });
 
 export const LogoutMutationOptions = mutationOptions({
