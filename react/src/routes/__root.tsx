@@ -10,7 +10,7 @@ function RootComponent() {
   return (
     <>
       <Navbar />
-      <main>
+      <main className="p-6">
         <Outlet />
       </main>
       <TanStackRouterDevtools />

@@ -6,7 +6,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="p-6">
+    <>
       <h3 className="text-2xl font-semibold text-gray-900 mb-4">
         Welcome to pocketbase-react-static!
       </h3>
@@ -16,6 +16,6 @@ function Index() {
       >
         Open secret
       </Link>
-    </div>
+    </>
   );
 }

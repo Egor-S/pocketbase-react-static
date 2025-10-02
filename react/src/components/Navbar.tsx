@@ -10,7 +10,10 @@ import {
 
 export function Navbar() {
   return (
-    <NavigationMenu viewport={false}>
+    <NavigationMenu
+      viewport={false}
+      className="w-full max-w-none justify-between p-2 border-b border-gray-200"
+    >
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
