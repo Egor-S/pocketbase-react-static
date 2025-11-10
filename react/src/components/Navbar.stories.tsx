@@ -4,6 +4,14 @@ import { Navbar } from "./Navbar";
 
 const meta = {
   component: Navbar,
+  parameters: {
+    queryData: [
+      {
+        key: ["currentUser"],
+        updater: { record: { email: "john.doe@example.com" } },
+      },
+    ],
+  },
 } satisfies Meta<typeof Navbar>;
 
 export default meta;

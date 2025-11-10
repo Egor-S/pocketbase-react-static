@@ -1,6 +1,7 @@
 import React from "react";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import type { QueryKey, SetDataOptions } from "@tanstack/react-query";
 import {
   createMemoryHistory,
   createRootRoute,
@@ -41,8 +42,11 @@ export function TanstackRouterDecorator(
   return <RouterProvider router={router} />;
 }
 
-export function TanstackQueryDecorator(Story: PartialStoryFn) {
-  // TODO load state from parameters
+export function TanstackQueryDecorator(
+  Story: PartialStoryFn,
+  { parameters }: StoryContext
+) {
+  const { queryData = [], queryDefaults = [] } = parameters || {};
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -51,6 +55,14 @@ export function TanstackQueryDecorator(Story: PartialStoryFn) {
         staleTime: Infinity,
       },
     },
+  });
+
+  queryData.forEach(({ key, updater, options }) => {
+    queryClient.setQueryData(key, updater, options);
+  });
+
+  queryDefaults.forEach(({ key, options }) => {
+    queryClient.setQueryDefaults(key, options);
   });
 
   return (
@@ -67,5 +79,16 @@ declare module "storybook/internal/types" {
       initialIndex?: number;
       routes?: string[];
     };
+
+    queryData?: {
+      key: QueryKey;
+      updater: object; // TODO: type this
+      options?: SetDataOptions;
+    }[];
+
+    queryDefaults?: {
+      key: QueryKey;
+      options: object; // TODO: type this
+    }[];
   }
 }
