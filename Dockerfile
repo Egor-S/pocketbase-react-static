@@ -27,11 +27,9 @@ COPY --from=react /app/dist /app/pb_public
 RUN CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH go build -o pocketbase main.go
 
 
-FROM alpine:3.22
+FROM scratch
 
 WORKDIR /app
-
-RUN apk --update add ca-certificates
 
 COPY --from=pocketbase /app/pocketbase /app/pocketbase
 
