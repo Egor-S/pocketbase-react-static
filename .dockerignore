@@ -1,0 +1,11 @@
+/.vscode/
+
+/docs/
+
+/pocketbase/pb_data/
+/pocketbase/pb_public/
+
+/react/.tanstack/
+/react/dist/
+/react/node_modules/
+/react/scripts/
