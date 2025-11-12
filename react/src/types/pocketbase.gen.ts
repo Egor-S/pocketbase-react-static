@@ -5,14 +5,16 @@
 import type PocketBase from "pocketbase";
 import type { RecordService } from "pocketbase";
 
-export enum Collections {
-  Authorigins = "_authOrigins",
-  Externalauths = "_externalAuths",
-  Mfas = "_mfas",
-  Otps = "_otps",
-  Superusers = "_superusers",
-  Users = "users",
-}
+export const Collections = {
+  Authorigins: "_authOrigins",
+  Externalauths: "_externalAuths",
+  Mfas: "_mfas",
+  Otps: "_otps",
+  Superusers: "_superusers",
+  Users: "users",
+} as const;
+
+export type Collections = typeof Collections[keyof typeof Collections];
 
 // Alias types for improved usability
 export type IsoDateString = string;

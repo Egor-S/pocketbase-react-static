@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "typegen": "pocketbase-typegen --db ../pocketbase/pb_data/data.db --out src/types/pocketbase.gen.ts"
+    "typegen": "pocketbase-typegen --db ../pocketbase/pb_data/data.db --out src/types/pocketbase.gen.ts && node scripts/postprocess-typegen.js"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.1.16",
