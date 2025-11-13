@@ -11,21 +11,25 @@ function Index() {
         Welcome to pocketbase-react-static!
       </h3>
 
-      <Link
-        to="/secret"
-        className="text-blue-600 hover:text-blue-800 underline"
-      >
-        Open secret
-      </Link>
+      <div>
+        <Link
+          to="/secret"
+          className="text-blue-600 hover:text-blue-800 underline"
+        >
+          Open /secret
+        </Link>
+        <span className="text-gray-500"> (authorization required)</span>
+      </div>
 
-      <br />
-
-      <Link
-        to="/topsecret"
-        className="text-blue-600 hover:text-blue-800 underline"
-      >
-        Open top secret
-      </Link>
+      <div>
+        <Link
+          to="/topsecret"
+          className="text-blue-600 hover:text-blue-800 underline"
+        >
+          Open /topsecret
+        </Link>
+        <span className="text-gray-500"> (admin authorization required)</span>
+      </div>
     </>
   );
 }

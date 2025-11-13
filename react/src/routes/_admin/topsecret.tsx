@@ -5,5 +5,10 @@ export const Route = createFileRoute("/_admin/topsecret")({
 });
 
 function TopSecret() {
-  return <div>Only admins can see this page</div>;
+  return (
+    <div>
+      If you haven't been redirected to the admin login page, you are
+      authenticated as admin!
+    </div>
+  );
 }

@@ -5,5 +5,9 @@ export const Route = createFileRoute("/_auth/secret")({
 });
 
 function Secret() {
-  return <p>Only logged in users can see this page</p>;
+  return (
+    <p>
+      If you haven't been redirected to the login page, you are authenticated!
+    </p>
+  );
 }
