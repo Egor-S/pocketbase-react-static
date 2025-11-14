@@ -40,3 +40,19 @@ export const LoginMutationOptions = mutationOptions({
     queryClient.invalidateQueries({ queryKey: UserQueryOptions.queryKey });
   },
 });
+
+export const SignupMutationOptions = mutationOptions({
+  mutationFn: async (data: {
+    email: string;
+    password: string;
+    passwordConfirm: string;
+  }) => {
+    await pb.collection("users").create(data);
+    return await pb
+      .collection("users")
+      .authWithPassword(data.email, data.password);
+  },
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: UserQueryOptions.queryKey });
+  },
+});

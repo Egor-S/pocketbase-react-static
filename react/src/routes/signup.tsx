@@ -1,27 +1,27 @@
+import { UserQueryOptions } from "@/api/auth";
+import { SignupForm } from "@/components/SignupForm";
+import { useQuery } from "@tanstack/react-query";
 import {
   createFileRoute,
   useLocation,
   useNavigate,
 } from "@tanstack/react-router";
-import { LoginForm } from "@/components/LoginForm";
-import { UserQueryOptions } from "@/api/auth";
-import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 
-type LoginSearch = {
+type SignupSearch = {
   next?: string;
 };
 
-export const Route = createFileRoute("/login")({
-  component: Login,
-  validateSearch: (search: Record<string, unknown>): LoginSearch => {
+export const Route = createFileRoute("/signup")({
+  component: Signup,
+  validateSearch: (search: Record<string, unknown>): SignupSearch => {
     return {
       next: (search.next as string) || "/",
     };
   },
 });
 
-function Login() {
+function Signup() {
   const location = useLocation();
   const navigate = useNavigate();
   const { data: user, isLoading, isError } = useQuery(UserQueryOptions);
@@ -36,7 +36,7 @@ function Login() {
   return (
     <div className="bg-background flex flex-col items-center justify-center gap-6 p-6 md:p-10">
       <div className="w-full max-w-sm">
-        <LoginForm next={location.search.next} />
+        <SignupForm next={location.search.next} />
       </div>
     </div>
   );

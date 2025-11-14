@@ -1,42 +1,47 @@
 import { GalleryVerticalEnd } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { ClientResponseError } from "pocketbase";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import { LoginMutationOptions } from "@/api/auth";
+import { SignupMutationOptions } from "@/api/auth";
 import { useMutation } from "@tanstack/react-query";
-import { ClientResponseError } from "pocketbase";
 
-type LoginFormProps = React.ComponentProps<"div"> & {
+type SignupFormProps = React.ComponentProps<"div"> & {
   next?: string;
 };
 
-export function LoginForm({ className, next, ...props }: LoginFormProps) {
+export function SignupForm({ className, next, ...props }: SignupFormProps) {
   const {
-    mutate: login,
+    mutate: signup,
     error,
     isError,
     isPending,
-  } = useMutation(LoginMutationOptions);
+  } = useMutation(SignupMutationOptions);
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    login({ email, password });
+    signup({ email, password, passwordConfirm });
   }
 
   function getErrorMessage(e: Error): string {
     if (e instanceof ClientResponseError) {
-      return "Invalid email or password";
+      if ("email" in e.data.data) {
+        return "Email already in use";
+      }
+      if ("passwordConfirm" in e.data.data) {
+        return "Passwords do not match";
+      }
     }
     return e.message;
   }
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <form onSubmit={onSubmit}>
@@ -51,15 +56,15 @@ export function LoginForm({ className, next, ...props }: LoginFormProps) {
               </div>
               <span className="sr-only">PocketBase SPA</span>
             </Link>
-            <h1 className="text-xl font-bold">Welcome to PocketBase SPA</h1>
+            <h1 className="text-xl font-bold">Sign up to PocketBase SPA</h1>
             <div className="text-center text-sm">
-              Don&apos;t have an account?{" "}
+              Already have an account?{" "}
               <Link
-                to="/signup"
+                to="/login"
                 search={{ next }}
                 className="underline underline-offset-4"
               >
-                Sign up
+                Login
               </Link>
             </div>
           </div>
@@ -87,6 +92,17 @@ export function LoginForm({ className, next, ...props }: LoginFormProps) {
               />
             </div>
             <div className="grid gap-2">
+              <Label htmlFor="passwordConfirm">Confirm Password</Label>
+              <Input
+                id="passwordConfirm"
+                type="password"
+                value={passwordConfirm}
+                onChange={(e) => setPasswordConfirm(e.target.value)}
+                placeholder="Confirm Password"
+                required
+              />
+            </div>
+            <div className="grid gap-2">
               <div className="h-5">
                 {isError && (
                   <p className="text-sm text-red-500">
@@ -96,7 +112,7 @@ export function LoginForm({ className, next, ...props }: LoginFormProps) {
               </div>
             </div>
             <Button type="submit" className="w-full" disabled={isPending}>
-              Login
+              Sign up
             </Button>
           </div>
           <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
