@@ -1,7 +1,11 @@
 import React from "react";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import type { QueryKey, SetDataOptions } from "@tanstack/react-query";
+import type {
+  QueryFunction,
+  QueryKey,
+  SetDataOptions,
+} from "@tanstack/react-query";
 import {
   createMemoryHistory,
   createRootRoute,
@@ -46,13 +50,14 @@ export function TanstackQueryDecorator(
   Story: PartialStoryFn,
   { parameters }: StoryContext
 ) {
-  const { queryData = [], queryDefaults = [] } = parameters || {};
+  const { queryData = [], prefetchQuery = [] } = parameters || {};
 
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
+        enabled: false, // set values manually in the story
         retry: false,
-        staleTime: Infinity,
+        staleTime: Infinity, // disable refetching
       },
     },
   });
@@ -61,8 +66,8 @@ export function TanstackQueryDecorator(
     queryClient.setQueryData(key, updater, options);
   });
 
-  queryDefaults.forEach(({ key, options }) => {
-    queryClient.setQueryDefaults(key, options);
+  prefetchQuery.forEach((item) => {
+    queryClient.prefetchQuery(item);
   });
 
   return (
@@ -80,15 +85,17 @@ declare module "storybook/internal/types" {
       routes?: string[];
     };
 
+    // set cached data
     queryData?: {
       key: QueryKey;
       updater: object; // TODO: type this
       options?: SetDataOptions;
     }[];
 
-    queryDefaults?: {
-      key: QueryKey;
-      options: object; // TODO: type this
+    // replace queryFn, throw error to simulate isError state
+    prefetchQuery?: {
+      queryKey: QueryKey;
+      queryFn: QueryFunction;
     }[];
   }
 }

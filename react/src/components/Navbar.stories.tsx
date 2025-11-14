@@ -4,6 +4,13 @@ import { Navbar } from "./Navbar";
 
 const meta = {
   component: Navbar,
+} satisfies Meta<typeof Navbar>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
   parameters: {
     queryData: [
       {
@@ -12,10 +19,17 @@ const meta = {
       },
     ],
   },
-} satisfies Meta<typeof Navbar>;
+};
 
-export default meta;
-
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {};
+export const Unauthenticated: Story = {
+  parameters: {
+    prefetchQuery: [
+      {
+        queryKey: ["currentUser"],
+        queryFn: () => {
+          throw new Error("Unauthenticated");
+        },
+      },
+    ],
+  },
+};
