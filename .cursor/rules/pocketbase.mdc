@@ -1,0 +1,20 @@
+---
+description: Changes under pocketbase directory
+alwaysApply: false
+---
+
+Backend uses Pocketbase Go Framework. It is evolving rapidly, worth checking the latest documentation at https://pocketbase.io/docs/.
+
+You can start pocketbase server with:
+
+```bash
+cd pocketbase
+go run . serve
+```
+
+Once database schema is changed and migrations are auto-generated, you should regenerate types for React:
+
+```bash
+cd react
+npm run typegen
+```

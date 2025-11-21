@@ -1,0 +1,14 @@
+---
+description: Changes under react directory
+alwaysApply: false
+---
+
+Frontend uses React, TypeScript, Tailwind CSS, shadcn/ui, TanStack Router, TanStack Query.
+
+TanStack Router uses file-based routing under `src/routes` directory. `_admin` group is requiring admin auth token, `_auth` group is requiring user auth token. Note that JS bundles are available to the user anyway, so you should not rely on those groups to protect your data, only use them to redirect to login page. Always fetch sensitive data from Pocketbase backend.
+
+TanStack Queries are stored under `src/api` directory.
+
+New components should be added to `src/components` directory via shadcn/ui CLI or manually. Consider creating stories next to the component for Storybook.
+
+Use `pb` or `pbAdmin` from `src/lib/pocketbase.ts` to interact with Pocketbase backend. Those clients are typed and authenticated automatically.
