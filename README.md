@@ -36,7 +36,6 @@ Integrations:
 - Admin auth
 - GitHub action for building Docker image (multiplatform)
 - Recommended extensions for VS Code
-- Cursor IDE rules
 
 ## Why?
 
