@@ -1,4 +1,4 @@
-# pocketbase-react-spa development log
+# pocketbase-react-static development log
 
 ## pocketbase
 
