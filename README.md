@@ -18,6 +18,21 @@ npm install
 npm run dev
 ```
 
+## Docker image
+
+The `Dockerfile` multi-stage builds the React SPA, embeds it into the Pocketbase Go binary, and lands it on an `alpine` base (not `scratch`, so outbound HTTPS works via `ca-certificates`). Build locally with:
+
+```bash
+docker build -t pocketbase-react-static:local .
+```
+
+`.github/workflows/build.yaml` builds and pushes an image to GHCR (`ghcr.io/<owner>/<repo>`), `linux/amd64` by default — edit the `PLATFORMS` env var in the workflow (e.g. add `,linux/arm64`) to build for more:
+
+- **Cut a GitHub Release** tagged `vX.Y.Z` — publishing it triggers the workflow and pushes an image tagged to match.
+- Or trigger it manually (Actions → Build Docker image → Run workflow) with an arbitrary `tag` input, e.g. to rebuild without cutting a new release.
+
+No extra secrets needed — it authenticates to GHCR with the default `GITHUB_TOKEN`.
+
 ## Tech stack & features
 
 - Pocketbase Golang
@@ -34,7 +49,7 @@ Integrations:
 - Pocketbase Typegen
 - User auth and registration
 - Admin auth
-- GitHub action for building Docker image (multiplatform)
+- GitHub action for building Docker image
 - Recommended extensions for VS Code
 - CLAUDE.md
 
