@@ -14,7 +14,7 @@ RUN npm run build
 
 
 # pin stage platform and use golang's toolchain
-FROM --platform=$BUILDPLATFORM golang:1.25-alpine AS pocketbase
+FROM --platform=$BUILDPLATFORM golang:1.27-alpine AS pocketbase
 
 WORKDIR /app
 
@@ -27,9 +27,11 @@ COPY --from=react /app/dist /app/pb_public
 RUN CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH go build -o pocketbase main.go
 
 
-FROM scratch
+FROM alpine:3.24
 
 WORKDIR /app
+
+RUN apk --update add ca-certificates
 
 COPY --from=pocketbase /app/pocketbase /app/pocketbase
 
