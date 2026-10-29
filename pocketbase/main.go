@@ -7,12 +7,12 @@ import (
 	"os"
 	"strings"
 
+	"ganigeorgiev.com/pocketbase/pocketbase"
+	"ganigeorgiev.com/pocketbase/pocketbase/apis"
+	"ganigeorgiev.com/pocketbase/pocketbase/core"
+	"ganigeorgiev.com/pocketbase/pocketbase/plugins/migratecmd"
 	"github.com/Egor-S/pocketbase-react-static/pocketbase/hooks"
 	_ "github.com/Egor-S/pocketbase-react-static/pocketbase/migrations"
-	"github.com/pocketbase/pocketbase"
-	"github.com/pocketbase/pocketbase/apis"
-	"github.com/pocketbase/pocketbase/core"
-	"github.com/pocketbase/pocketbase/plugins/migratecmd"
 )
 
 //go:embed pb_public/*
