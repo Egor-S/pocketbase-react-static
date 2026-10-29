@@ -1,8 +1,8 @@
 package migrations
 
 import (
-	"github.com/pocketbase/pocketbase/core"
-	m "github.com/pocketbase/pocketbase/migrations"
+	"ganigeorgiev.com/pocketbase/pocketbase/core"
+	m "ganigeorgiev.com/pocketbase/pocketbase/migrations"
 )
 
 func init() {
@@ -11,7 +11,7 @@ func init() {
 		settings := app.Settings()
 
 		// for all available settings fields you could check
-		// https://github.com/pocketbase/pocketbase/blob/develop/core/settings_model.go#L121-L130
+		// ganigeorgiev.com/pocketbase/pocketbase core/settings_model.go (type settings struct)
 		settings.Meta.AppName = "github.com/Egor-S/pocketbase-react-static"
 		settings.Meta.AppURL = "http://localhost:8090"
 		settings.Logs.MaxDays = 3

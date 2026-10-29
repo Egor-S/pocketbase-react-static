@@ -6,7 +6,7 @@
 mkdir pocketbase
 cd pocketbase
 go mod init github.com/Egor-S/pocketbase-react-static/pocketbase
-go get github.com/pocketbase/pocketbase
+go get ganigeorgiev.com/pocketbase/pocketbase
 ```
 
 ## react
